@@ -1,0 +1,7 @@
+.card{
+    @apply w-full p-4 dark:shadow-dark-xl shadow-xl bg-white dark:bg-slate-850 rounded-2xl;
+}
+
+.card.error{
+    @apply border border-error bg-error-focus/20;
+}

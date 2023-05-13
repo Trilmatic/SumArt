@@ -1,3 +1,18 @@
+@import './base.css';
+@import './admin.css';
+@import './forms.css';
+
+/* Components */
+@import './components/alert.css';
+@import './components/card.css';
+@import './components/table.css';
+@import './components/tabs.css';
+@import './components/tooltip.css';
+@import './components/button.css';
+@import './components/markdown.css';
+@import './components/pagination.css';
+@import './components/tom-select.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
