@@ -342,29 +342,29 @@ module.exports = {
                 900: "#881337",
             },
             // Primary
-            primary: "#FDB813",
-            "primary-focus": "#F0C300",
+            primary: "#4A90E2",
+            "primary-focus": "#006FD6",
             // Secondary
-            secondary: "#0C53D7",
-            "secondary-focus": "#063C97",
+            secondary: "#FF4081",
+            "secondary-focus": "#F50057",
             // Accent
-            accent: "#8D6E63",
-            "accent-focus": "#5D4037",
+            accent: "#FF8500",
+            "accent-focus": "#D65F00",
             // Neutral
-            neutral: "#2D3748",
-            "neutral-focus": "#1A202C",
+            neutral: "#4A5568",
+            "neutral-focus": "#2D3748",
             // Success
-            success: "#48BB78",
-            "success-focus": "#38A169",
+            success: "#4CAF50",
+            "success-focus": "#388E3C",
             // Warning
-            warning: "#FFA727",
-            "warning-focus": "#F57C00",
+            warning: "#FFC107",
+            "warning-focus": "#FF8F00",
             // Error
-            error: "#E53E3E",
-            "error-focus": "#C53030",
+            error: "#E53935",
+            "error-focus": "#C62828",
             // Info
-            info: "#63B3ED",
-            "info-focus": "#3182CE",
+            info: "#3F51B5",
+            "info-focus": "#303F9F",
         }),
         columns: {
             auto: "auto",

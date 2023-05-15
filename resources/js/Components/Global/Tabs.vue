@@ -7,14 +7,14 @@ provide("selected", selected);
 </script>
 <template>
   <div
-    class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700"
+    class="tabs"
   >
     <ul div class="flex flex-wrap -mb-px">
       <li class="mr-2" v-for="(t, i) in tabs" :key="i">
         <a
           href="javascript:;"
-          class="inline-block p-4 border-b-2 border-transparent rounded-t-lg"
-          :class="selected == t ? 'text-primary border-primary' : 'hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300'"
+          class="tab"
+          :class="selected == t ? 'active' : ''"
           @click="selected = t"
           v-html="t"
         ></a>

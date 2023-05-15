@@ -23,6 +23,7 @@
         "chart.js": "^4.3.0",
         "flatpickr": "^4.6.13",
         "marked": "^5.0.2",
+        "puppeteer": "^20.2.0",
         "tippy.js": "^6.3.7",
         "tom-select": "^2.2.2"
     }

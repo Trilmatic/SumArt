@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AutomationController;
+use App\Http\Controllers\CompletionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -32,4 +34,9 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::controller(AutomationController::class)->prefix('automations')->name('automations.')->group(function () {
+        Route::get('/create', 'create')->name('create');
+        Route::post('/source/check', 'checkSource')->name('source.check');
+    });
 });

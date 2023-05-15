@@ -49,7 +49,7 @@ const switchToTeam = (team) => {
           <h6
             class="pl-6 ml-2 text-xs font-bold leading-tight uppercase dark:text-white opacity-60"
           >
-            Dashboard
+            Tools
           </h6>
         </li>
         <li class="mt-0.5 w-full">
@@ -84,6 +84,47 @@ const switchToTeam = (team) => {
             </div>
             <span class="ml-1 duration-300 opacity-100 pointer-events-none ease"
               >Dashboard</span
+            >
+          </Link>
+        </li>
+        <li class="mt-0.5 w-full">
+          <Link
+            class="nav-link ease-nav-brand"
+            :class="{ active: $page.url.startsWith('/automations') }"
+            href="/automations"
+          >
+            <div
+              class="mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-center stroke-0 text-center xl:p-1.5"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-3d-cube-sphere"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M6 17.6l-2 -1.1v-2.5"></path>
+                <path d="M4 10v-2.5l2 -1.1"></path>
+                <path d="M10 4.1l2 -1.1l2 1.1"></path>
+                <path d="M18 6.4l2 1.1v2.5"></path>
+                <path d="M20 14v2.5l-2 1.12"></path>
+                <path d="M14 19.9l-2 1.1l-2 -1.1"></path>
+                <path d="M12 12l2 -1.1"></path>
+                <path d="M18 8.6l2 -1.1"></path>
+                <path d="M12 12l0 2.5"></path>
+                <path d="M12 18.5l0 2.5"></path>
+                <path d="M12 12l-2 -1.12"></path>
+                <path d="M6 8.6l-2 -1.1"></path>
+              </svg>
+            </div>
+            <span class="ml-1 duration-300 opacity-100 pointer-events-none ease"
+              >Automations</span
             >
           </Link>
         </li>

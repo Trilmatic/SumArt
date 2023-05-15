@@ -3,7 +3,7 @@
 }
 
 .form-input{
-    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:border-primary-focus block w-full p-2.5 dark:bg-slate-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white;
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg outline-none focus:border-primary-focus dark:focus:border-primary-focus block w-full p-2.5 dark:bg-slate-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white;
 }
 
 .form-input.error{

@@ -53,3 +53,38 @@ export const toLocaleStringArray = [
     { code: 'zh-HK', name: 'Hong Kong, traditional characters' },
     { code: 'zh-TW', name: 'Taiwan, traditional characters' }
 ];
+
+export const lookForList = [
+    { name: "Article", value: "article" }
+];
+
+export const actionsList = [
+    { name: "Summarize", value: "summarize" },
+    { name: "Recap", value: "recap" },
+    { name: "Simplify", value: "simplify" },
+    { name: "Explain Like I’m Five", value: "explain like I’m five" },
+    { name: "Summarize as Emoji", value: "summaraze as emoji" },
+    { name: "Summarize as Poem", value: "summarize as poem" },
+    { name: "Summarize for Gen Z", value: "summarize for Gen Z" }
+];
+
+export const automationTypes = [
+    { name: "RSS source summary", value: "rss-source-summary" }
+];
+
+export const automationFrequencies = [
+    { name: "daily", value: "daily" },
+    { name: "hourly", value: "hourly" },
+    { name: "every 15 minutes", value: "every 15 minutes" }
+];
+
+export const alertMessages = {
+    "source:validated": {
+        type: "success",
+        message: "RSS source validated.",
+    },
+    "source:error": {
+        type: "error",
+        message: "Not a valid RSS source.",
+    }
+};
