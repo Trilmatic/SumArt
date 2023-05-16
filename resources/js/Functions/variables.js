@@ -73,9 +73,9 @@ export const automationTypes = [
 ];
 
 export const automationFrequencies = [
-    { name: "Daily at", value: "daily at" },
+    { name: "Daily at", value: "daily" },
     { name: "Hourly", value: "hourly" },
-    { name: "Every 15 minutes", value: "every 15 minutes" }
+    { name: "Every 15 minutes", value: "every-15-minutes" }
 ];
 
 export const alertMessages = {

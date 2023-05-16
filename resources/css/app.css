@@ -12,6 +12,7 @@
 @import './components/markdown.css';
 @import './components/pagination.css';
 @import './components/tom-select.css';
+@import './components/flatpickr.css';
 
 @tailwind base;
 @tailwind components;

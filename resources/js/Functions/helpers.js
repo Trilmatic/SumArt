@@ -1,4 +1,5 @@
 import TomSelect from "tom-select/dist/js/tom-select.complete.min";
+import flatpickr from "flatpickr";
 
 export const handleAside = () => {
     const sidenav = document.querySelector("aside");
@@ -127,7 +128,6 @@ export const createTomSelect = (element, options, defaultValue = null) => {
     const renderItem = (data, escape) => {
         return "<div>" + escape(data[options.searchField || "name"]) + "</div>";
     };
-    console.log(options);
     const tomselect = new TomSelect(element, {
         valueField: options.valueField || "value",
         searchField: options.searchField || "name",
@@ -142,4 +142,14 @@ export const createTomSelect = (element, options, defaultValue = null) => {
     if (defaultValue) tomselect.addItem(defaultValue);
     if (options.onChange) tomselect.on("change", options.onChange);
     return tomselect;
+};
+
+export const createFlatpickr = (element, options) => {
+    flatpickr(element, {
+        enableTime: options.enableTime || false,
+        noCalendar: options.noCalendar || false,
+        dateFormat: options.dateFormat || "Y-m-d",
+        time_24hr: options.time_24hr || true,
+        onChange: options.onChange || null
+    });
 };

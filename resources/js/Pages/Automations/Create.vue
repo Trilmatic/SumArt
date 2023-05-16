@@ -3,6 +3,10 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import Modal from "@/Components/Modal.vue";
 import Tabs from "@/Components/Global/Tabs.vue";
 import FieldDescription from "@/Components/Global/FieldDescription.vue";
+import CreateAutomationIcon from "@/Components/Icons/CreateAutomationIcon.vue";
+import AddSourceIcon from "@/Components/Icons/AddSourceIcon.vue";
+import SourceListIcon from "@/Components/Icons/SourceListIcon.vue";
+import RemoveSourceIcon from "@/Components/Icons/RemoveSourceIcon.vue";
 import Tab from "@/Components/Global/Tab.vue";
 import { nextTick, onMounted, ref, reactive } from "vue";
 import { router, Link } from "@inertiajs/vue3";
@@ -11,13 +15,14 @@ import {
   automationTypes,
   automationFrequencies,
 } from "@/Functions/variables";
-import { createTomSelect } from "@/Functions/helpers";
+import { createTomSelect, createFlatpickr } from "@/Functions/helpers";
 
 const sourcesList = ref([]);
 const form = reactive({
   name: null,
   type: automationTypes[0].value,
   frequency: automationFrequencies[0].value,
+  time: null,
 });
 
 const props = defineProps({
@@ -60,9 +65,22 @@ const checkSource = () => {
 const changeAutomationType = (value) => {
   form.type = value;
 };
+
 const changeAutomationFrequency = (value) => {
-  console.log(value);
   form.frequency = value;
+};
+
+const changeAutomationTime = (selectedDates, dateStr, instance) => {
+  form.time = dateStr;
+};
+
+const initTimeSelect = () => {
+  createFlatpickr("#time", {
+    onChange: changeAutomationTime,
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",
+  });
 };
 
 const initSelect = () => {
@@ -96,6 +114,7 @@ const submit = () => {
 
 onMounted(() => {
   initSelect();
+  initTimeSelect();
 });
 </script>
 <template>
@@ -105,7 +124,7 @@ onMounted(() => {
     <template #parent
       ><Link class="link" href="/dashboard">Dashboard</Link></template
     >
-    <div class="card">
+    <div class="card max-w-5xl mx-auto">
       <h4>New Automation</h4>
       <div>
         <label
@@ -142,18 +161,31 @@ onMounted(() => {
           </span>
         </FieldDescription>
       </div>
-      <div>
-        <label
-          for="look"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Frequency<span class="text-error">*</span>
-        </label>
-        <div class="mb-2">
-          <input id="frequency" />
+      <div class="flex space-x-2">
+        <div class="w-full">
+          <label
+            for="look"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Frequency<span class="text-error">*</span>
+          </label>
+          <div class="mb-2">
+            <input id="frequency" />
+          </div>
+          <FieldDescription>
+            Determines how often will you get new summaries from the source.
+          </FieldDescription>
         </div>
-        <FieldDescription>
-          Determines how often will you get new summaries from the source.
-        </FieldDescription>
+        <div v-show="form.frequency == 'daily'" class="w-full">
+          <label
+            for="time"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >At<span class="text-error">*</span>
+          </label>
+          <div class="mb-2">
+            <input class="form-input" id="time" />
+          </div>
+          <FieldDescription> Determines time when </FieldDescription>
+        </div>
       </div>
       <div>
         <h6>Add RSS sources</h6>
@@ -172,25 +204,7 @@ onMounted(() => {
           type="url"
         />
         <button @click="checkSource" class="btn btn-primary">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-playlist-add"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M19 8h-14"></path>
-            <path d="M5 12h9"></path>
-            <path d="M11 16h-6"></path>
-            <path d="M15 16h6"></path>
-            <path d="M18 13v6"></path>
-          </svg>
+          <AddSourceIcon />
         </button>
       </div>
       <div class="py-6">
@@ -200,51 +214,17 @@ onMounted(() => {
           :key="i"
         >
           <div class="flex space-x-1 items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="icon icon-tabler icon-tabler-brand-tabler text-warning"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-              <path d="M8 9l3 3l-3 3"></path>
-              <path d="M13 15l3 0"></path>
-              <path
-                d="M4 4m0 4a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z"
-              ></path>
-            </svg>
+            <SourceListIcon />
             <a target="_blank" :href="s" class="link">
               {{ s.url }}
             </a>
           </div>
-          <svg
-            @click="removeSource(i)"
-            xmlns="http://www.w3.org/2000/svg"
-            class="icon icon-tabler icon-tabler-circle-x text-error hover:text-error-focus hover:cursor-pointer"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
-            <path d="M10 10l4 4m0 -4l-4 4"></path>
-          </svg>
+          <RemoveSourceIcon @click="removeSource(i)" />
         </div>
       </div>
       <div class="flex justify-end">
-        <button class="btn btn-success" @click="submit">
-          Create automation
+        <button class="btn btn-success font-bold" @click="submit">
+          <CreateAutomationIcon /><span class="ml-1">Create automation</span>
         </button>
       </div>
     </div>
