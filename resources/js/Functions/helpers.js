@@ -1,3 +1,5 @@
+import TomSelect from "tom-select/dist/js/tom-select.complete.min";
+
 export const handleAside = () => {
     const sidenav = document.querySelector("aside");
     if (!sidenav) return;
@@ -120,3 +122,24 @@ export const saveDateFormat = (value) => {
 }
 
 export const dateFormat = initDateFormat();
+
+export const createTomSelect = (element, options, defaultValue = null) => {
+    const renderItem = (data, escape) => {
+        return "<div>" + escape(data[options.searchField || "name"]) + "</div>";
+    };
+    console.log(options);
+    const tomselect = new TomSelect(element, {
+        valueField: options.valueField || "value",
+        searchField: options.searchField || "name",
+        maxItems: options.maxItems || 1,
+        options: options.options,
+        render: {
+            option: options.renderOption || renderItem,
+            item: options.renderSelection || renderItem,
+        },
+        create: options.create || false
+    });
+    if (defaultValue) tomselect.addItem(defaultValue);
+    if (options.onChange) tomselect.on("change", options.onChange);
+    return tomselect;
+};

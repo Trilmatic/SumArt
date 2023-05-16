@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AutomationController;
+use App\Http\Controllers\Automations\StoreController;
 use App\Http\Controllers\CompletionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -35,8 +36,9 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::controller(AutomationController::class)->prefix('automations')->name('automations.')->group(function () {
-        Route::get('/create', 'create')->name('create');
-        Route::post('/source/check', 'checkSource')->name('source.check');
+    Route::prefix('automations')->name('automations.')->group(function () {
+        Route::get('/create', [AutomationController::class, 'create'])->name('create');
+        Route::post('/source/check',  [AutomationController::class, 'checkSource'])->name('source.check');
+        Route::post('/store',  StoreController::class)->name('store');
     });
 });

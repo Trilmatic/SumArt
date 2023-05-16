@@ -1,5 +1,4 @@
 <script setup>
-import TomSelect from "tom-select/dist/js/tom-select.complete.min";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Modal from "@/Components/Modal.vue";
 import Tabs from "@/Components/Global/Tabs.vue";
@@ -7,12 +6,18 @@ import FieldDescription from "@/Components/Global/FieldDescription.vue";
 import Tab from "@/Components/Global/Tab.vue";
 import { nextTick, onMounted, ref, reactive } from "vue";
 import { router, Link } from "@inertiajs/vue3";
-import { alertMessages, automationTypes } from "@/Functions/variables";
+import {
+  alertMessages,
+  automationTypes,
+  automationFrequencies,
+} from "@/Functions/variables";
+import { createTomSelect } from "@/Functions/helpers";
 
 const sourcesList = ref([]);
 const form = reactive({
   name: null,
-  automationType: automationTypes[0],
+  type: automationTypes[0].value,
+  frequency: automationFrequencies[0].value,
 });
 
 const props = defineProps({
@@ -53,32 +58,40 @@ const checkSource = () => {
 };
 
 const changeAutomationType = (value) => {
-  form.automationType = value;
+  form.type = value;
+};
+const changeAutomationFrequency = (value) => {
+  console.log(value);
+  form.frequency = value;
 };
 
 const initSelect = () => {
-  const renderItem = (data, escape) => {
-    return "<div>" + escape(data.name) + "</div>";
-  };
   const typeInput = document.querySelector("#type");
+  const frequencyInput = document.querySelector("#frequency");
   if (typeInput) {
-    const renderItem = (data, escape) => {
-      return "<div>" + escape(data.name) + "</div>";
-    };
-    const select = new TomSelect(typeInput, {
-      valueField: "value",
-      searchField: "name",
-      allowEmpty: false,
-      options: automationTypes,
-      maxItems: 1,
-      render: {
-        option: renderItem,
-        item: renderItem,
+    createTomSelect(
+      typeInput,
+      {
+        onChange: changeAutomationType,
+        options: automationTypes,
       },
-    });
-    select.on("change", changeAutomationType);
-    select.addItem(automationTypes[0].value);
+      automationTypes[0].value
+    );
   }
+  if (frequencyInput) {
+    createTomSelect(
+      frequencyInput,
+      { onChange: changeAutomationFrequency, options: automationFrequencies },
+      automationFrequencies[0].value
+    );
+  }
+};
+
+const submit = () => {
+  router.post("/automations/store", {
+    source: sourcesList.value,
+    ...form,
+  });
 };
 
 onMounted(() => {
@@ -101,26 +114,45 @@ onMounted(() => {
           >Name<span class="text-error">*</span>
         </label>
         <div class="mb-2">
-          <input class="form-input" type="text" id="name" />
+          <input
+            v-model="form.name"
+            class="form-input"
+            :class="{ error: errors && errors.name }"
+            type="text"
+            id="name"
+          />
         </div>
       </div>
       <div>
         <label
           for="look"
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Automation type
+          >Automation type<span class="text-error">*</span>
         </label>
         <div class="mb-2">
           <input id="type" />
         </div>
         <FieldDescription>
-          <span v-show="form.automationType === 'rss-source-summary'">
+          <span v-show="form.type === 'rss-source-summary'">
             Automation will gather data from RSS sources. Automation will
             display the latest updates from multiple sources in a single
             location, making it easier to stay informed about preferred topics
             without having to visit each website individually. Each topic is
             summarzed and ready with source links.
           </span>
+        </FieldDescription>
+      </div>
+      <div>
+        <label
+          for="look"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Frequency<span class="text-error">*</span>
+        </label>
+        <div class="mb-2">
+          <input id="frequency" />
+        </div>
+        <FieldDescription>
+          Determines how often will you get new summaries from the source.
         </FieldDescription>
       </div>
       <div>
@@ -209,6 +241,11 @@ onMounted(() => {
             <path d="M10 10l4 4m0 -4l-4 4"></path>
           </svg>
         </div>
+      </div>
+      <div class="flex justify-end">
+        <button class="btn btn-success" @click="submit">
+          Create automation
+        </button>
       </div>
     </div>
   </AppLayout>
