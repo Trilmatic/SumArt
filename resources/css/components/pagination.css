@@ -15,7 +15,7 @@
 }
 
 .pagination .pagination-link.disabled{
-    @apply bg-white dark:bg-slate-700 hover:bg-white dark:hover:bg-slate-700 hover:dark:text-gray-500 dark:hover:dark:text-gray-400;
+    @apply bg-white/40 dark:bg-slate-700/40 hover:bg-white dark:hover:bg-slate-700/40 hover:dark:text-gray-500 dark:hover:dark:text-gray-400 hover:cursor-not-allowed;
 }
 
 .pagination li:first-child .pagination-link{

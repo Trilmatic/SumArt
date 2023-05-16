@@ -7,7 +7,7 @@ defineProps({
 </script>
 <template>
   <div
-    class="flex flex-wrap items-center justify-between w-full bg-gray-100 dark:bg-gray-800 rounded-lg"
+    class="flex flex-wrap items-center justify-between w-full card p-2"
     v-if="pagination.links && pagination.links.length > 3"
   >
     <div class="px-2 py-3">

@@ -118,13 +118,13 @@ onMounted(() => {
 });
 </script>
 <template>
-  <AppLayout title="Dashboard">
+  <AppLayout title="Create Automation">
     <template #title>Automations</template>
     <template #subtitle>Create</template>
     <template #parent
       ><Link class="link" href="/dashboard">Dashboard</Link></template
     >
-    <div class="card max-w-5xl mx-auto">
+    <section class="card max-w-5xl mx-auto">
       <h4>New Automation</h4>
       <div>
         <label
@@ -227,6 +227,6 @@ onMounted(() => {
           <CreateAutomationIcon /><span class="ml-1">Create automation</span>
         </button>
       </div>
-    </div>
+    </section>
   </AppLayout>
 </template>
