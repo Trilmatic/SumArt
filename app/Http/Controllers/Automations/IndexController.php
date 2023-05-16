@@ -13,7 +13,7 @@ final class IndexController
     public function __invoke(Request $request)
     {
         $handler = new ListAutomations;
-        $automations = $handler->handle($request)->paginate(15)
+        $automations = $handler->handle($request)->orderBy('updated_at', 'desc')->paginate(15)
             ->appends($request->query());
         return Inertia::render('Automations/Index', [
             'filter' => $request->input('filter'),

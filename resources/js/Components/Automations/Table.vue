@@ -1,5 +1,7 @@
 <script setup>
 import { router, Link } from "@inertiajs/vue3";
+import { formatDateTime } from "@/Functions/helpers";
+
 const props = defineProps({
   data: Array,
 });
@@ -12,7 +14,7 @@ const deleteRow = (row) => {
 </script>
 <template>
   <div
-    class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border"
+    class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border max-w-5xl mx-auto"
   >
     <div class="flex-auto px-0 pt-0 pb-2 overflow-x-auto">
       <table class="table">
@@ -20,6 +22,7 @@ const deleteRow = (row) => {
           <tr>
             <th scope="col" class="px-6 py-3">Name</th>
             <th scope="col" class="px-6 py-3">Frequency</th>
+            <th scope="col" class="px-6 py-3">Updated at</th>
             <th scope="col" class="px-6 py-3">Actions</th>
           </tr>
         </thead>
@@ -30,6 +33,9 @@ const deleteRow = (row) => {
             </td>
             <td scope="row">
               {{ row.frequency }}
+            </td>
+            <td scope="row">
+              {{ formatDateTime(row.updated_at) }}
             </td>
             <td scope="row">
               <button @click="deleteRow(row)" class="btn btn-sm btn-error">

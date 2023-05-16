@@ -181,7 +181,7 @@ onMounted(() => {
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >At<span class="text-error">*</span>
           </label>
-          <div class="mb-2">
+          <div class="mb-2" :class="{ error: errors && errors.time }">
             <input class="form-input" id="time" />
           </div>
           <FieldDescription> Determines time when </FieldDescription>

@@ -25,6 +25,7 @@ class AutomationRequest extends FormRequest
             'name' => 'required|max:255',
             'type' => 'required|max:100',
             'frequency' => 'required|max:100',
+            'time' => 'exclude_unless:frequency,daily|required',
             'source' => 'required|array|max:10',
             'source.*.url' => 'required|active_url',
         ];
