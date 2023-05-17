@@ -124,7 +124,7 @@ onMounted(() => {
     <template #parent
       ><Link class="link" href="/dashboard">Dashboard</Link></template
     >
-    <section class="card max-w-5xl mx-auto">
+    <section class="card max-w-7xl mx-auto">
       <h4>New Automation</h4>
       <div>
         <label

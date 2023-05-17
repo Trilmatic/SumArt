@@ -153,3 +153,13 @@ export const createFlatpickr = (element, options) => {
         onChange: options.onChange || null
     });
 };
+
+export const debounce = (callback, wait) => {
+    var timeoutId = null;
+    return (...args) => {
+        window.clearTimeout(timeoutId);
+        timeoutId = window.setTimeout(() => {
+            callback.apply(null, args);
+        }, wait);
+    };
+}

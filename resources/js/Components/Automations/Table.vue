@@ -2,6 +2,12 @@
 import { router, Link } from "@inertiajs/vue3";
 import { formatDateTime } from "@/Functions/helpers";
 
+import ContextMenu from "@/Components/Global/ContextMenu.vue";
+import TrashIcon from "@/Components/Icons/TrashIcon.vue";
+import CopyIcon from "@/Components/Icons/CopyIcon.vue";
+import EditIcon from "@/Components/Icons/EditIcon.vue";
+import ViewIcon from "@/Components/Icons/ViewIcon.vue";
+
 const props = defineProps({
   data: Array,
 });
@@ -14,7 +20,7 @@ const deleteRow = (row) => {
 </script>
 <template>
   <div
-    class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border max-w-5xl mx-auto"
+    class="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border max-w-7xl mx-auto"
   >
     <div class="flex-auto px-0 pt-0 pb-2 overflow-x-auto">
       <table class="table">
@@ -29,7 +35,9 @@ const deleteRow = (row) => {
         <tbody>
           <tr v-for="row in data" :key="row.id">
             <td scope="row">
-              {{ row.name }}
+              <Link class="link" :href="'/automations/' + row.hash">{{
+                row.name
+              }}</Link>
             </td>
             <td scope="row">
               {{ row.frequency }}
@@ -37,36 +45,37 @@ const deleteRow = (row) => {
             <td scope="row">
               {{ formatDateTime(row.updated_at) }}
             </td>
-            <td scope="row">
-              <button @click="deleteRow(row)" class="btn btn-sm btn-error">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon icon-tabler icon-tabler-trash"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  stroke-width="2"
-                  stroke="currentColor"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+            <td class="relative" scope="row">
+              <ContextMenu>
+                <Link
+                  :href="'/automations/' + row.hash"
+                  class="w-full text-left py-2 px-3 hover:dark:bg-slate-600 hover:bg-slate-400 hover:text-primary transition-colors rounded-xl"
                 >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M4 7l16 0"></path>
-                  <path d="M10 11l0 6"></path>
-                  <path d="M14 11l0 6"></path>
-                  <path
-                    d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"
-                  ></path>
-                  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
-                </svg>
-              </button>
+                  <ViewIcon /><span class="ml-1">View</span>
+                </Link>
+                <Link
+                  :href="'/automations/' + row.hash + '/edit'"
+                  class="w-full text-left py-2 px-3 hover:dark:bg-slate-600 hover:bg-slate-400 hover:text-warning transition-colors rounded-xl"
+                >
+                  <EditIcon /><span class="ml-1">Edit</span>
+                </Link>
+                <button
+                  @click="duplicate(row)"
+                  class="w-full text-left py-2 px-3 hover:dark:bg-slate-600 hover:bg-slate-400 hover:text-info transition-colors rounded-xl"
+                >
+                  <CopyIcon /><span class="ml-1">Duplicate</span>
+                </button>
+                <button
+                  @click="deleteRow(row)"
+                  class="w-full text-left py-2 px-3 hover:dark:bg-slate-600 hover:bg-slate-400 hover:text-error transition-colors rounded-xl"
+                >
+                  <TrashIcon /><span class="ml-1">Delete</span>
+                </button>
+              </ContextMenu>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg max-w-7xl"></div>
 </template>
