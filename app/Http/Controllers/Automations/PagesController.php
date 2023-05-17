@@ -2,15 +2,29 @@
 
 namespace App\Http\Controllers\Automations;
 
-use App\Http\Requests\AutomationRequest;
 use App\Queries\Automations\ListAutomations;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-final class IndexController
+final class PagesController
 {
 
-    public function __invoke(Request $request)
+    public function create(Request $request)
+    {
+        return Inertia::render('Automations/CreateOrEdit', []);
+    }
+
+    public function edit(Request $request)
+    {
+        return Inertia::render('Automations/CreateOrEdit', []);
+    }
+
+    public function show(Request $request)
+    {
+        //return Inertia::render('Automations/CreateOrEdit', []);
+    }
+
+    public function index(Request $request)
     {
         $handler = new ListAutomations;
         $automations = $handler->handle($request)->orderBy('updated_at', 'desc')->paginate(15)

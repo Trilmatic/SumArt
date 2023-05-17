@@ -74,7 +74,11 @@ const changeAutomationTime = (selectedDates, dateStr, instance) => {
   form.time = dateStr;
 };
 
-const initTimeSelect = () => {
+const loadSources = () => {
+
+};
+
+const initFlatpickr = () => {
   createFlatpickr("#time", {
     onChange: changeAutomationTime,
     enableTime: true,
@@ -114,7 +118,8 @@ const submit = () => {
 
 onMounted(() => {
   initSelect();
-  initTimeSelect();
+  initFlatpickr();
+  loadSources();
 });
 </script>
 <template>

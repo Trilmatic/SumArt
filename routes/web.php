@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\AutomationController;
+/*Automations*/
 use App\Http\Controllers\Automations\CheckSourceController;
-use App\Http\Controllers\Automations\CreateController;
-use App\Http\Controllers\Automations\IndexController;
+use App\Http\Controllers\Automations\PagesController;
 use App\Http\Controllers\Automations\StoreController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,8 +39,10 @@ Route::middleware([
     })->name('dashboard');
 
     Route::prefix('automations')->name('automations.')->group(function () {
-        Route::get('/',IndexController::class)->name('index');
-        Route::get('/create', CreateController::class)->name('create');
+        Route::get('/', [PagesController::class, 'index'])->name('index');
+        Route::get('/create', [PagesController::class, 'create'])->name('create');
+        Route::get('/{hash}', [PagesController::class, 'show'])->name('show');
+        Route::get('/{hash}/edit', [PagesController::class, 'edit'])->name('edit');
         Route::post('/source/check',  CheckSourceController::class)->name('source.check');
         Route::post('/store',  StoreController::class)->name('store');
     });

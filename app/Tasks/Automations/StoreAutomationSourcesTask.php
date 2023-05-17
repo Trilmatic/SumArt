@@ -20,13 +20,15 @@ final class StoreAutomationSourcesTask
         $automation_id = $payload->get('automation')->id;
 
         foreach ($payload->get('source') as &$source) {
-            $this->command->handle(
-                [
-                    'automation_id' => $automation_id,
-                    'url' => $source['url'],
+            if (!isset($source['id'])) {
+                $this->command->handle(
+                    [
+                        'automation_id' => $automation_id,
+                        'url' => $source['url'],
 
-                ]
-            );
+                    ]
+                );
+            }
         }
 
         return $next($payload);
