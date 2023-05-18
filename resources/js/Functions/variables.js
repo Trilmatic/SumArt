@@ -91,4 +91,8 @@ export const alertMessages = {
         type: "success",
         message: "Source deleted.",
     },
+    "automation:deleted": {
+        type: "success",
+        message: "Automation deleted.",
+    },
 };
