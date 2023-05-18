@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Automations;
 
 use App\Http\Requests\AutomationRequest;
 use App\Processes\AutomationUpdateProcess;
-use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Support\Facades\Gate;
-use Inertia\Inertia;
 
 final class UpdateController
 {
@@ -21,6 +18,6 @@ final class UpdateController
         $payload->put('user', $request->user());
         $this->process->run($payload);
 
-        return redirect()->back()->with('success');
+        return redirect()->route('automations.index');
     }
 }

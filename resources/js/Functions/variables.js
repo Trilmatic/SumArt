@@ -86,5 +86,9 @@ export const alertMessages = {
     "source:error": {
         type: "error",
         message: "Not a valid RSS source.",
-    }
+    },
+    "source:deleted": {
+        type: "success",
+        message: "Source deleted.",
+    },
 };

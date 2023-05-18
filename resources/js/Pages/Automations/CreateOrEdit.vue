@@ -34,12 +34,36 @@ const eventSourceValidated = reactive(
   new CustomEvent("alert:push", { detail: alertMessages["source:validated"] })
 );
 
+const eventSourceDelete = reactive(
+  new CustomEvent("alert:push", { detail: alertMessages["source:deleted"] })
+);
+
 const eventSourceError = reactive(
   new CustomEvent("alert:push", { detail: alertMessages["source:error"] })
 );
 
-const removeSource = (index) => {
-  sourcesList.value.splice(index, 1);
+const removeSource = (source, index) => {
+  if (
+    source.id &&
+    props.automation.hash &&
+    confirm("Do you really want to delete the source?")
+  ) {
+    router.delete(
+      "/automations/" +
+        props.automation.hash +
+        "/source/" +
+        source.id +
+        "/delete",
+      {
+        onSuccess: () => {
+          document.dispatchEvent(eventSourceDelete);
+          sourcesList.value.splice(index, 1);
+        },
+      }
+    );
+  } else {
+    sourcesList.value.splice(index, 1);
+  }
 };
 
 const checkSource = () => {
@@ -83,11 +107,16 @@ const parseFrequency = (frequency) => {
 };
 
 const loadAutomationData = () => {
-  if (!props.automation || !props.automation.sources) return;
-  sourcesList.value = props.automation.sources;
+  if (!props.automation) return;
+  loadAutomationSources();
   form.name = props.automation.name;
   form.type = props.automation.type;
   parseFrequency(props.automation.frequency);
+};
+
+const loadAutomationSources = () => {
+  if (!props.automation.sources) return;
+  sourcesList.value = props.automation.sources;
 };
 
 const initFlatpickr = () => {
@@ -126,7 +155,7 @@ const submit = () => {
     ? "/automations/" + props.automation.hash + "/update"
     : "/automations/store";
   const method = props.automation ? "put" : "post";
-   router[method](url, {
+  router[method](url, {
     source: sourcesList.value,
     ...form,
   });
@@ -246,7 +275,7 @@ onMounted(() => {
               {{ s.url }}
             </a>
           </div>
-          <RemoveSourceIcon @click="removeSource(i)" />
+          <RemoveSourceIcon @click="removeSource(s, i)" />
         </div>
       </div>
       <div class="flex justify-end">

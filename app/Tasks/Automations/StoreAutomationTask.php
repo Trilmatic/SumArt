@@ -3,10 +3,7 @@
 namespace App\Tasks\Automations;
 
 use App\Commands\Automations\StoreAutomation;
-use App\Models\Automation;
 use Closure;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 final class StoreAutomationTask
 {

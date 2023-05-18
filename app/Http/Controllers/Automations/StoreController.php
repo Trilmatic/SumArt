@@ -19,6 +19,6 @@ final class StoreController
         $payload->put('user', $request->user());
         $this->process->run($payload);
 
-        return redirect()->back()->with('success');
+        return redirect()->route('automations.index');
     }
 }

@@ -3,6 +3,8 @@
 /*Automations*/
 
 use App\Http\Controllers\Automations\CheckSourceController;
+use App\Http\Controllers\Automations\DeleteController;
+use App\Http\Controllers\Automations\DeleteSourceController;
 use App\Http\Controllers\Automations\PagesController;
 use App\Http\Controllers\Automations\StoreController;
 use App\Http\Controllers\Automations\UpdateController;
@@ -45,8 +47,8 @@ Route::middleware([
         Route::get('/{hash}', [PagesController::class, 'show'])->name('show');
         Route::get('/{hash}/edit', [PagesController::class, 'edit'])->name('edit');
         Route::put('/{hash}/update', UpdateController::class)->name('update');
-        Route::delete('/{hash}/delete', null)->name('delete');
-        Route::delete('/source/{id}/delete', null)->name('source.delete');
+        Route::delete('/{hash}/delete', DeleteController::class)->name('delete');
+        Route::delete('/{hash}/source/{id}/delete', DeleteSourceController::class)->name('source.delete');
         Route::post('/source/check',  CheckSourceController::class)->name('source.check');
         Route::post('/store',  StoreController::class)->name('store');
     });
