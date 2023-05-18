@@ -28,7 +28,14 @@ onUnmounted(() => {
 });
 </script>
 <template>
-  <Transition name="fade" appear>
+  <Transition
+    enter-active-class="duration-100 ease-out"
+    enter-from-class="transform opacity-0"
+    enter-to-class="opacity-100 translate-y-0"
+    leave-active-class="duration-100 ease-in"
+    leave-from-class="opacity-100 translate-y-0"
+    leave-to-class="transform opacity-0"
+  >
     <div class="alert" :class="'alert-' + type" v-if="visible">
       <svg
         aria-hidden="true"

@@ -4,21 +4,21 @@ namespace App\Commands\Automations;
 
 use App\Models\Automation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 
-final class StoreAutomation
+final class UpdateAutomation
 {
     public function handle($payload)
     {
-        Gate::authorize('create', Automation::class);
+        $automation = $payload->get('automation');
+        Gate::authorize('update', $automation);
         $frequency = $payload->get('frequency');
         if ($payload->has('time')) {
             $frequency .= "|" . $payload->get('time');
         }
-        return DB::transaction(callback: static fn () => Automation::query()->create(
+        return DB::transaction(callback: static fn () => Automation::query()->where('id', $automation->id)->update(
             [
-                'user_id' => $payload->get('user')->id,
                 'name' => $payload->get('name'),
                 'frequency' => $frequency,
                 'type' => $payload->get('type'),

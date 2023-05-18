@@ -1,10 +1,11 @@
 <?php
 
 /*Automations*/
+
 use App\Http\Controllers\Automations\CheckSourceController;
 use App\Http\Controllers\Automations\PagesController;
 use App\Http\Controllers\Automations\StoreController;
-
+use App\Http\Controllers\Automations\UpdateController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -43,6 +44,9 @@ Route::middleware([
         Route::get('/create', [PagesController::class, 'create'])->name('create');
         Route::get('/{hash}', [PagesController::class, 'show'])->name('show');
         Route::get('/{hash}/edit', [PagesController::class, 'edit'])->name('edit');
+        Route::put('/{hash}/update', UpdateController::class)->name('update');
+        Route::delete('/{hash}/delete', null)->name('delete');
+        Route::delete('/source/{id}/delete', null)->name('source.delete');
         Route::post('/source/check',  CheckSourceController::class)->name('source.check');
         Route::post('/store',  StoreController::class)->name('store');
     });

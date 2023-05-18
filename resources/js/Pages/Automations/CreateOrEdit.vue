@@ -26,7 +26,7 @@ const form = reactive({
 });
 
 const props = defineProps({
-  sources: Array,
+  automation: Object,
   errors: Object,
 });
 
@@ -68,14 +68,26 @@ const changeAutomationType = (value) => {
 
 const changeAutomationFrequency = (value) => {
   form.frequency = value;
+  if (value !== "daily") form.time = null;
+  else form.time = "12:00";
 };
 
 const changeAutomationTime = (selectedDates, dateStr, instance) => {
   form.time = dateStr;
 };
 
-const loadSources = () => {
+const parseFrequency = (frequency) => {
+  const split = frequency.split("|");
+  if (split[0]) form.frequency = split[0];
+  if (split[1]) form.time = split[1];
+};
 
+const loadAutomationData = () => {
+  if (!props.automation || !props.automation.sources) return;
+  sourcesList.value = props.automation.sources;
+  form.name = props.automation.name;
+  form.type = props.automation.type;
+  parseFrequency(props.automation.frequency);
 };
 
 const initFlatpickr = () => {
@@ -110,7 +122,11 @@ const initSelect = () => {
 };
 
 const submit = () => {
-  router.post("/automations/store", {
+  const url = props.automation
+    ? "/automations/" + props.automation.hash + "/update"
+    : "/automations/store";
+  const method = props.automation ? "put" : "post";
+   router[method](url, {
     source: sourcesList.value,
     ...form,
   });
@@ -119,18 +135,24 @@ const submit = () => {
 onMounted(() => {
   initSelect();
   initFlatpickr();
-  loadSources();
+  loadAutomationData();
 });
 </script>
 <template>
   <AppLayout title="Create Automation">
     <template #title>Automations</template>
-    <template #subtitle>Create</template>
+    <template #subtitle
+      ><span v-if="props.automation">Edit</span
+      ><span v-else>Create</span></template
+    >
     <template #parent
       ><Link class="link" href="/dashboard">Dashboard</Link></template
     >
     <section class="card max-w-7xl mx-auto">
-      <h4>New Automation</h4>
+      <h4>
+        <span v-if="props.automation">{{ props.automation.name }}</span
+        ><span v-else>New Automation</span>
+      </h4>
       <div>
         <label
           for="url"
@@ -187,7 +209,7 @@ onMounted(() => {
             >At<span class="text-error">*</span>
           </label>
           <div class="mb-2" :class="{ error: errors && errors.time }">
-            <input class="form-input" id="time" />
+            <input class="form-input" v-model="form.time" id="time" />
           </div>
           <FieldDescription> Determines time when </FieldDescription>
         </div>
@@ -229,7 +251,10 @@ onMounted(() => {
       </div>
       <div class="flex justify-end">
         <button class="btn btn-success font-bold" @click="submit">
-          <CreateAutomationIcon /><span class="ml-1">Create automation</span>
+          <CreateAutomationIcon /><span class="ml-1"
+            ><span v-if="props.automation">Edit</span
+            ><span v-else>Create</span></span
+          >
         </button>
       </div>
     </section>

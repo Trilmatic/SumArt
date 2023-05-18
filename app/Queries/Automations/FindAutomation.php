@@ -8,6 +8,8 @@ final class FindAutomation
 {
     public function handle($hash)
     {
-        return Automation::where('hash', $hash);
+        $record = Automation::where('hash', $hash)->with('sources');
+        if (!$record->exists()) abort(404);
+        return $record->first();
     }
 }

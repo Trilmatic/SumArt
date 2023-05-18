@@ -2,7 +2,7 @@
 
 namespace App\Processes;
 
-use App\Http\Process;
+use App\Processes\Process;
 use App\Tasks\Automations\StoreAutomationSourcesTask;
 use App\Tasks\Automations\StoreAutomationTask;
 

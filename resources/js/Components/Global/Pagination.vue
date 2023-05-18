@@ -7,19 +7,19 @@ defineProps({
 </script>
 <template>
   <div
-    class="flex flex-wrap items-center justify-between w-full card p-2 max-w-7xl mx-auto"
+    class="flex flex-wrap items-center justify-between w-full card p-4 max-w-7xl mx-auto"
     v-if="pagination.links && pagination.links.length > 3"
   >
-    <div class="px-2 py-3">
+    <div>
       <strong>{{ pagination.from }}</strong> to
       <strong>{{ pagination.to }}</strong> of
       <strong>{{ pagination.total }}</strong>
     </div>
-    <div class="hidden md:block px-2 py-3">
-      <ul class="pagination list-none">
+    <div>
+      <ul class="pagination">
         <li>
           <Link
-            class="pagination-link block"
+            class="btn btn-sm pagination-link"
             :href="pagination.first_page_url ? pagination.first_page_url : ''"
             :data="
               filter &&
@@ -54,7 +54,7 @@ defineProps({
         </li>
         <li>
           <Link
-            class="pagination-link block"
+            class="btn btn-sm pagination-link"
             :href="pagination.prev_page_url ? pagination.prev_page_url : ''"
             :data="filter && pagination.prev_page_url ? filter : {}"
             :class="{
@@ -91,7 +91,7 @@ defineProps({
         </li>
         <li>
           <Link
-            class="pagination-link block"
+            class="btn btn-sm pagination-link"
             :href="pagination.next_page_url ? pagination.next_page_url : ''"
             :data="filter && pagination.next_page_url ? filter : {}"
             :class="{
@@ -118,7 +118,7 @@ defineProps({
         </li>
         <li>
           <Link
-            class="pagination-link block"
+            class="btn btn-sm pagination-link"
             :href="pagination.last_page_url ? pagination.last_page_url : ''"
             :data="
               filter &&

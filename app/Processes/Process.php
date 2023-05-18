@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http;
+namespace App\Processes;
 
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\Pipeline as FacadesPipeline;
