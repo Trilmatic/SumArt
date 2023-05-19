@@ -41,6 +41,6 @@ class Automation extends Model
     public function activity()
     {
         $handler = new GetAutomationActivity();
-        return $handler->handle($this)->get();
+        return $handler->handle($this)->orderBy('updated_at', 'desc')->limit(100)->get();
     }
 }

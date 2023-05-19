@@ -1,8 +1,8 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Tabs from "@/Components/Global/Tabs.vue";
-import RemoveSourceIcon from "@/Components/Icons/RemoveSourceIcon.vue";
 import Tab from "@/Components/Global/Tab.vue";
+import ActivityLogList from "@/Components/Global/ActivityLogList.vue";
 import { nextTick, onMounted, ref, reactive } from "vue";
 import { router, Link } from "@inertiajs/vue3";
 
@@ -25,8 +25,9 @@ onMounted(() => {});
       <h2>{{ automation.name }}</h2>
       <Tabs>
         <Tab title="Completions"> </Tab>
+        <Tab title="Sources"> </Tab>
         <Tab title="Activity">
-          {{ activity }}
+          <ActivityLogList :activity="activity" />
         </Tab>
       </Tabs>
     </section>
