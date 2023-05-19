@@ -22,7 +22,7 @@ const form = reactive({
   name: null,
   type: automationTypes[0].value,
   frequency: automationFrequencies[0].value,
-  time: null,
+  time_at: null,
 });
 
 const props = defineProps({
@@ -92,26 +92,24 @@ const changeAutomationType = (value) => {
 
 const changeAutomationFrequency = (value) => {
   form.frequency = value;
-  if (value !== "daily") form.time = null;
-  else form.time = "12:00";
+  if (value !== "daily") form.time_at = null;
+  else form.time_at = "12:00";
 };
 
 const changeAutomationTime = (selectedDates, dateStr, instance) => {
-  form.time = dateStr;
+  form.time_at = dateStr;
 };
 
-const parseFrequency = (frequency) => {
-  const split = frequency.split("|");
-  if (split[0]) form.frequency = split[0];
-  if (split[1]) form.time = split[1];
-};
-
-const loadAutomationData = () => {
+const loadAutomationData = async () => {
   if (!props.automation) return;
+  await nextTick();
   loadAutomationSources();
   form.name = props.automation.name;
   form.type = props.automation.type;
-  parseFrequency(props.automation.frequency);
+  form.time_at = props.automation.time_at;
+  form.frequency = props.automation.frequency;
+  const frequencyInput = document.getElementById("frequency");
+  frequencyInput.tomselect.addItem(form.frequency);
 };
 
 const loadAutomationSources = () => {
@@ -120,7 +118,7 @@ const loadAutomationSources = () => {
 };
 
 const initFlatpickr = () => {
-  createFlatpickr("#time", {
+  createFlatpickr("#time_at", {
     onChange: changeAutomationTime,
     enableTime: true,
     noCalendar: true,
@@ -233,12 +231,12 @@ onMounted(() => {
         </div>
         <div v-show="form.frequency == 'daily'" class="w-full">
           <label
-            for="time"
+            for="time_at"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >At<span class="text-error">*</span>
           </label>
-          <div class="mb-2" :class="{ error: errors && errors.time }">
-            <input class="form-input" v-model="form.time" id="time" />
+          <div class="mb-2" :class="{ error: errors && errors.time_at }">
+            <input class="form-input" v-model="form.time_at" id="time_at" />
           </div>
           <FieldDescription> Determines time when </FieldDescription>
         </div>

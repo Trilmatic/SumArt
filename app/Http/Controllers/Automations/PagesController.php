@@ -27,9 +27,15 @@ final class PagesController
         ]);
     }
 
-    public function show(Request $request)
+    public function show(Request $request, $hash)
     {
-        //return Inertia::render('Automations/CreateOrEdit', []);
+        $handler = new FindAutomation();
+        $automation = $handler->handle($hash);
+        Gate::authorize('view',  $automation);
+        return Inertia::render('Automations/Show', [
+            'automation' => $automation,
+            'activity' => $automation->activity()
+        ]);
     }
 
     public function index(Request $request)

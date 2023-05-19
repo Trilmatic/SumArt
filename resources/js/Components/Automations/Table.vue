@@ -49,25 +49,25 @@ const deleteRow = (row) => {
               <ContextMenu>
                 <Link
                   :href="'/automations/' + row.hash"
-                  class="w-full text-left py-2 px-3 hover:dark:bg-slate-600 hover:bg-slate-400 hover:text-primary transition-colors rounded-xl"
+                  class="w-full text-left py-2 px-3 hover:dark:bg-slate-600 hover:bg-slate-200 hover:text-primary transition-colors rounded-xl"
                 >
                   <ViewIcon /><span class="ml-1">View</span>
                 </Link>
                 <Link
                   :href="'/automations/' + row.hash + '/edit'"
-                  class="w-full text-left py-2 px-3 hover:dark:bg-slate-600 hover:bg-slate-400 hover:text-warning transition-colors rounded-xl"
+                  class="w-full text-left py-2 px-3 hover:dark:bg-slate-600 hover:bg-slate-200 hover:text-warning transition-colors rounded-xl"
                 >
                   <EditIcon /><span class="ml-1">Edit</span>
                 </Link>
                 <button
                   @click="duplicate(row)"
-                  class="w-full text-left py-2 px-3 hover:dark:bg-slate-600 hover:bg-slate-400 hover:text-info transition-colors rounded-xl"
+                  class="w-full text-left py-2 px-3 hover:dark:bg-slate-600 hover:bg-slate-200 hover:text-info transition-colors rounded-xl"
                 >
                   <CopyIcon /><span class="ml-1">Duplicate</span>
                 </button>
                 <button
                   @click="deleteRow(row)"
-                  class="w-full text-left py-2 px-3 hover:dark:bg-slate-600 hover:bg-slate-400 hover:text-error transition-colors rounded-xl"
+                  class="w-full text-left py-2 px-3 hover:dark:bg-slate-600 hover:bg-slate-200 hover:text-error transition-colors rounded-xl"
                 >
                   <TrashIcon /><span class="ml-1">Delete</span>
                 </button>

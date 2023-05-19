@@ -3,9 +3,9 @@
 }
 
 .tabs .tab{
-    @apply inline-flex p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300;
+    @apply inline-flex p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 font-bold;
 }
 
 .tabs .tab.active{
-    @apply border-b-2 rounded-t-lg text-secondary border-secondary hover:border-secondary dark:hover:text-secondary;
+    @apply border-b-2 rounded-t-lg text-info border-info hover:border-info dark:hover:text-info;
 }

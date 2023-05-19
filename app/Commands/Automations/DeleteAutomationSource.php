@@ -11,6 +11,6 @@ final class DeleteAutomationSource
     public function handle($automation, $source)
     {
         Gate::authorize('delete', $automation);
-        return DB::transaction(callback: static fn () => AutomationSource::query()->where('id', $source->id)->delete(), attempts: 2,);
+        return DB::transaction(callback: static fn () => $source->delete(), attempts: 2,);
     }
 }

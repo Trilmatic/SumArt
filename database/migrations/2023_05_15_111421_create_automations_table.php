@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('frequency');
             $table->string('type');
+            $table->string('time_at')->nullable();
             $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
         });

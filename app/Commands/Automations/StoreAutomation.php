@@ -12,15 +12,12 @@ final class StoreAutomation
     public function handle($payload)
     {
         Gate::authorize('create', Automation::class);
-        $frequency = $payload->get('frequency');
-        if ($payload->has('time')) {
-            $frequency .= "|" . $payload->get('time');
-        }
-        return DB::transaction(callback: static fn () => Automation::query()->create(
+        return DB::transaction(callback: static fn () => Automation::create(
             [
                 'user_id' => $payload->get('user')->id,
                 'name' => $payload->get('name'),
-                'frequency' => $frequency,
+                'frequency' => $payload->get('frequency'),
+                'time_at' => $payload->get('time_at'),
                 'type' => $payload->get('type'),
             ]
         ), attempts: 2,);

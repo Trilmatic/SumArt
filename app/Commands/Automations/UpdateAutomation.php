@@ -12,14 +12,11 @@ final class UpdateAutomation
     {
         $automation = $payload->get('automation');
         Gate::authorize('update', $automation);
-        $frequency = $payload->get('frequency');
-        if ($payload->has('time') && $payload->get('time')) {
-            $frequency .= "|" . $payload->get('time');
-        }
-        return DB::transaction(callback: static fn () => Automation::query()->where('id', $automation->id)->update(
+        return DB::transaction(callback: static fn () => $automation->update(
             [
                 'name' => $payload->get('name'),
-                'frequency' => $frequency,
+                'frequency' => $payload->get('frequency'),
+                'time_at' => $payload->get('time_at'),
                 'type' => $payload->get('type'),
             ]
         ), attempts: 2,);

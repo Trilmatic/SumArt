@@ -58,7 +58,7 @@ onUnmounted(() => {
         leave-to-class="transform opacity-0"
       >
         <div
-          class="absolute z-110 rounded-xl bg-slate-300 dark:bg-slate-700 shadow-xl dark:shadow-dark-xl transition-opacity duration-200"
+          class="absolute z-110 rounded-xl bg-slate-100 dark:bg-slate-700 shadow-xl dark:shadow-dark-xl transition-opacity duration-200"
           :style="'top:' + positionTop + 'px;left:' + positionLeft + 'px;'"
           v-if="visible"
         >

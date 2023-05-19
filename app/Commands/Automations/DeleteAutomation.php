@@ -12,6 +12,6 @@ final class DeleteAutomation
     {
         $automation = $payload->get('automation');
         Gate::authorize('delete', $automation);
-        return DB::transaction(callback: static fn () => Automation::query()->where('id', $automation->id)->delete(), attempts: 2,);
+        return DB::transaction(callback: static fn () => $automation->delete(), attempts: 2,);
     }
 }

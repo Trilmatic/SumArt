@@ -14,7 +14,7 @@ final class StoreAutomationSource
         //dd($sources->toArray());
         return DB::transaction(
             callback: static fn () =>
-            AutomationSource::query()->create(
+            AutomationSource::create(
                 $source
             ),
             attempts: 2,
