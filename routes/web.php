@@ -45,6 +45,7 @@ Route::middleware([
         Route::get('/', [PagesController::class, 'index'])->name('index');
         Route::get('/create', [PagesController::class, 'create'])->name('create');
         Route::get('/{hash}', [PagesController::class, 'show'])->name('show');
+        Route::get('/id/{id}', [PagesController::class, 'showById'])->name('showById');
         Route::get('/{hash}/edit', [PagesController::class, 'edit'])->name('edit');
         Route::put('/{hash}/update', UpdateController::class)->name('update');
         Route::delete('/{hash}/delete', DeleteController::class)->name('delete');

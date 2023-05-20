@@ -1,4 +1,6 @@
-<script></script>
+<script setup>
+import CategoryIcon from "@/Components/Icons/CategoryIcon.vue";
+</script>
 <template>
   <!-- Navbar -->
   <nav
@@ -40,30 +42,13 @@
         <ul
           class="list-none flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full"
         >
-          <li class="flex items-center px-4">
+          <li class="flex items-center">
             <a
               settings-button
               href="javascript:;"
-              class="p-0 text-sm dark:text-white text-gray-900 transition-all ease-nav-brand hover:text-primary dark:hover:text-primary"
+              class="p-0 text-sm dark:text-white text-gray-900 transition-all ease-nav-brand hover:text-primary dark:hover:text-info px-4 py-2"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="icon icon-tabler icon-tabler-settings"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                <path
-                  d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"
-                ></path>
-                <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
-              </svg>
+              <CategoryIcon />
               <!-- fixed-plugin-button-nav  -->
             </a>
           </li>

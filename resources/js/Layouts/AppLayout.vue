@@ -66,7 +66,10 @@ onMounted(() => {
       <AppFooter />
     </main>
     <div>
-      <AppSettings @helpers:toggle="toggleHelpers" />
+      <AppSettings
+        @helpers:toggle="toggleHelpers"
+        :userActivity="$page.props.userActivity"
+      />
     </div>
     <Alerts />
   </body>

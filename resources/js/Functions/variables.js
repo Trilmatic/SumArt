@@ -99,8 +99,8 @@ export const alertMessages = {
 
 export const activityLogMessages = {
     "App\\Models\\Automation": {
-        "updated": "Automation was updated",
-        "deleted": "Automation was deleted",
-        "created": "Automation was created",
+        "updated": "was updated",
+        "deleted": "was deleted",
+        "created": "was created",
     }
 }

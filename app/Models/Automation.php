@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\AutomationSource;
 use App\Queries\Activity\GetAutomationActivity;
 use Hashids\Hashids;
+use Illuminate\Support\Facades\DB;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -21,8 +22,14 @@ class Automation extends Model
         parent::boot();
         static::created(function ($record) {
             $hashids = new Hashids(env('AUTOMATION_HASH_KEY', 1), 8);
-            $record->hash = $hashids->encode($record->id);
-            $record->save();
+            $hash = $hashids->encode($record->id);
+            activity()->withoutLogs(function () use ($record, $hash) {
+                DB::transaction(callback: static fn () => $record->update(
+                    [
+                        'hash' => $hash,
+                    ]
+                ), attempts: 2,);
+            });
         });
     }
 
@@ -34,7 +41,7 @@ class Automation extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'frequency', 'time_at', 'type']);
+            ->logOnly(['name', 'frequency', 'time_at', 'type', 'hash'])->dontSubmitEmptyLogs();
         // Chain fluent methods for configuration options
     }
 

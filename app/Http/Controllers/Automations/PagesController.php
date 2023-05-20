@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Automations;
 
+use App\Models\Automation;
 use App\Queries\Automations\FindAutomation;
 use App\Queries\Automations\ListAutomations;
 use Illuminate\Http\Request;
@@ -36,6 +37,12 @@ final class PagesController
             'automation' => $automation,
             'activity' => $automation->activity()
         ]);
+    }
+
+    public function showById(Request $request, $id)
+    {
+        $automation = Automation::findOrFail($id);
+        return redirect()->route("automations.show", $automation->hash);
     }
 
     public function index(Request $request)

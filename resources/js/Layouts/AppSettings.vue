@@ -3,9 +3,14 @@ import { onMounted, ref, defineEmits } from "vue";
 import { Link, router } from "@inertiajs/vue3";
 import { handleHelpersToggle } from "@/Functions/helpers";
 import DateFormatSelect from "@/Components/Global/DateFormatSelect.vue";
+import ActivityLogList from "@/Components/Global/ActivityLogList.vue";
 
 const emit = defineEmits(["helpers:toggle"]);
 const helpersToggle = ref(null);
+
+const activeTab = ref(null);
+
+const props = defineProps({ userActivity: Array });
 
 const initHelpersToggle = () => {
   helpersToggle.value.checked = handleHelpersToggle();
@@ -144,6 +149,7 @@ onMounted(() => {
           <div>
             <DateFormatSelect />
           </div>
+          <ActivityLogList :activity="userActivity" />
         </div>
         <div>
           <div class="flex justify-center">
