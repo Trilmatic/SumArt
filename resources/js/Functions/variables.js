@@ -95,6 +95,14 @@ export const alertMessages = {
         type: "success",
         message: "Automation deleted.",
     },
+    "automation:duplicated": {
+        type: "success",
+        message: "Automation duplicated.",
+    },
+    "automation:error": {
+        type: "error",
+        message: "Oops! Something went wrong, please try again later.",
+    },
 };
 
 export const activityLogMessages = {

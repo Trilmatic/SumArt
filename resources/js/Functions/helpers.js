@@ -163,3 +163,7 @@ export const debounce = (callback, wait) => {
         }, wait);
     };
 }
+
+export const back = () => {
+    window.history.back();
+}

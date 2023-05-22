@@ -12,10 +12,14 @@ const props = defineProps({
   data: Array,
 });
 
-const emit = defineEmits(["row:delete"]);
+const emit = defineEmits(["row:delete", "row:duplicate"]);
 
 const deleteRow = (row) => {
   emit("row:delete", row);
+};
+
+const duplicateRow = (row) => {
+  emit("row:duplicate", row);
 };
 </script>
 <template>
@@ -60,7 +64,7 @@ const deleteRow = (row) => {
                   <EditIcon /><span class="ml-1">Edit</span>
                 </Link>
                 <button
-                  @click="duplicate(row)"
+                  @click="duplicateRow(row)"
                   class="w-full text-left py-2 px-3 hover:dark:bg-slate-600 hover:bg-slate-200 hover:text-info transition-colors rounded-xl"
                 >
                   <CopyIcon /><span class="ml-1">Duplicate</span>

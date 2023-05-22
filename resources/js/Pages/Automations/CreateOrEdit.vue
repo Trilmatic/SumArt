@@ -6,6 +6,8 @@ import FieldDescription from "@/Components/Global/FieldDescription.vue";
 import CreateAutomationIcon from "@/Components/Icons/CreateAutomationIcon.vue";
 import AddSourceIcon from "@/Components/Icons/AddSourceIcon.vue";
 import SourceListIcon from "@/Components/Icons/SourceListIcon.vue";
+import BackIcon from "@/Components/Icons/BackIcon.vue";
+import EditIcon from "@/Components/Icons/EditIcon.vue";
 import RemoveSourceIcon from "@/Components/Icons/RemoveSourceIcon.vue";
 import Tab from "@/Components/Global/Tab.vue";
 import { nextTick, onMounted, ref, reactive } from "vue";
@@ -15,7 +17,7 @@ import {
   automationTypes,
   automationFrequencies,
 } from "@/Functions/variables";
-import { createTomSelect, createFlatpickr } from "@/Functions/helpers";
+import { createTomSelect, createFlatpickr, back } from "@/Functions/helpers";
 
 const sourcesList = ref([]);
 const form = reactive({
@@ -176,10 +178,15 @@ onMounted(() => {
       ><Link class="link" href="/dashboard">Dashboard</Link></template
     >
     <section class="card max-w-7xl mx-auto">
-      <h4>
-        <span v-if="props.automation">{{ props.automation.name }}</span
-        ><span v-else>New Automation</span>
-      </h4>
+      <div class="flex mb-2 justify-between items-center">
+        <h3>
+          <span v-if="props.automation">{{ props.automation.name }}</span
+          ><span v-else>New Automation</span>
+        </h3>
+        <button @click="back" class="btn btn-warning btn-sm">
+          <BackIcon />
+        </button>
+      </div>
       <div>
         <label
           for="url"
@@ -278,9 +285,10 @@ onMounted(() => {
       </div>
       <div class="flex justify-end">
         <button class="btn btn-success font-bold" @click="submit">
-          <CreateAutomationIcon /><span class="ml-1"
-            ><span v-if="props.automation">Edit</span
-            ><span v-else>Create</span></span
+          <span v-if="props.automation"
+            ><EditIcon /><span class="ml-1">Edit</span></span
+          ><span v-else
+            ><span class="ml-1"><CreateAutomationIcon />Create</span></span
           >
         </button>
       </div>

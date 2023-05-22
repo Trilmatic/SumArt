@@ -20,9 +20,36 @@ const eventAutomationDelete = reactive(
   new CustomEvent("alert:push", { detail: alertMessages["automation:deleted"] })
 );
 
+const eventAutomationDuplicate = reactive(
+  new CustomEvent("alert:push", {
+    detail: alertMessages["automation:duplicated"],
+  })
+);
+
+const eventAutomationError = reactive(
+  new CustomEvent("alert:push", {
+    detail: alertMessages["automation:duplicated"],
+  })
+);
+
 const clearFilters = () => {
   filters.name = null;
   applyFilter();
+};
+
+const duplicateRow = (row) => {
+  router.post(
+    route("automations.duplicate", row.hash),
+    {},
+    {
+      onSuccess: () => {
+        document.dispatchEvent(eventAutomationDuplicate);
+      },
+      onError: () => {
+        document.dispatchEvent(eventAutomationError);
+      },
+    }
+  );
 };
 
 const filterName = (value) => {
@@ -32,9 +59,12 @@ const filterName = (value) => {
 
 const deleteRow = (row) => {
   if (!confirm("Do you really want to delete the automation?")) return;
-  router.delete("/automations/" + row.hash + "/delete", {
+  router.delete(route("automations.delete", row.hash), {
     onSuccess: () => {
       document.dispatchEvent(eventAutomationDelete);
+    },
+    onError: () => {
+      document.dispatchEvent(eventAutomationError);
     },
   });
 };
@@ -68,7 +98,11 @@ const applyFilter = () => {
         />
       </div>
     </div>
-    <Table :data="automations.data" @row:delete="deleteRow" />
+    <Table
+      :data="automations.data"
+      @row:delete="deleteRow"
+      @row:duplicate="duplicateRow"
+    />
     <Pagination :pagination="automations" :filter="filter" />
   </AppLayout>
 </template>

@@ -40,7 +40,7 @@ import CategoryIcon from "@/Components/Icons/CategoryIcon.vue";
           <!-- Serach input place -->
         </div>
         <ul
-          class="list-none flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full"
+          class="list-none flex flex-row justify-end pl-0 mb-0 md-max:w-full"
         >
           <li class="flex items-center">
             <a
