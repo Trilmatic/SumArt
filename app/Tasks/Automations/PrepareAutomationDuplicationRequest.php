@@ -13,19 +13,21 @@ final class PrepareAutomationDuplicationRequest
     public function __invoke($payload, Closure $next): mixed
     {
         $automation = $payload->get('automation');
-        $source = [];
-        foreach ($automation->sources() as &$source) {
+        $source_list = [];
+        foreach ($automation->sources()->get() as &$source) {
             array_push(
+                $source_list,
                 [
-                    'url' => $source->url
+                    'url' => $source['url']
                 ]
             );
         }
-        $payload->put('name', $automation->name . " (duplicate)");
+        $name = $automation->name . " (2)";
+        $payload->put('name', $name);
         $payload->put('frequency', $automation->frequency);
         $payload->put('time_at', $automation->time_at);
         $payload->put('type', $automation->type);
-        $payload->put('source', $source);
+        $payload->put('source', $source_list);
         $payload->put('automation', null);
         return $next($payload);
     }
