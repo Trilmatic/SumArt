@@ -28,6 +28,10 @@ final class StoreAutomationSourcesTask
 
                     ]
                 );
+                activity()
+                    ->causedBy($payload->get('user'))
+                    ->performedOn($payload->get('automation'))
+                    ->log('source:created');
             }
         }
 

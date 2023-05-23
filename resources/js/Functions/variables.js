@@ -110,5 +110,7 @@ export const activityLogMessages = {
         "updated": "was updated",
         "deleted": "was deleted",
         "created": "was created",
+        "source:deleted": "source was deleted",
+        "source:created": "source was created",
     }
 }

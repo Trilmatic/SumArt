@@ -11,7 +11,6 @@ final class StoreAutomationSource
 {
     public function handle($source)
     {
-        //dd($sources->toArray());
         return DB::transaction(
             callback: static fn () =>
             AutomationSource::create(
