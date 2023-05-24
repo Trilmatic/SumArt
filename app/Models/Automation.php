@@ -42,7 +42,6 @@ class Automation extends Model
     {
         return LogOptions::defaults()
             ->logOnly(['name', 'frequency', 'time_at', 'type', 'hash'])->dontSubmitEmptyLogs();
-        // Chain fluent methods for configuration options
     }
 
     public function activity()
