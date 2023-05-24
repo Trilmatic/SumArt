@@ -4,11 +4,13 @@ import { Link, router } from "@inertiajs/vue3";
 import { handleHelpersToggle } from "@/Functions/helpers";
 import DateFormatSelect from "@/Components/Global/DateFormatSelect.vue";
 import ActivityLogList from "@/Components/Global/ActivityLogList.vue";
+import SettingsIcon from "@/Components/Icons/SettingsIcon.vue";
+import ActivityIcon from "@/Components/Icons/ActivityIcon.vue";
 
 const emit = defineEmits(["helpers:toggle"]);
 const helpersToggle = ref(null);
 
-const activeTab = ref(null);
+const activeTab = ref("settings");
 
 const props = defineProps({ userActivity: Array });
 
@@ -35,9 +37,13 @@ onMounted(() => {
     class="z-sticky backdrop-blur-2xl backdrop-saturate-200 dark:bg-slate-850/80 shadow-3xl w-90 ease -right-90 fixed top-0 left-auto flex h-full min-w-0 flex-col break-words rounded-none border-0 bg-white/80 bg-clip-border px-2.5 duration-200"
   >
     <div class="px-6 pt-4 pb-0 mb-0 border-b-0 rounded-t-2xl">
-      <div class="float-left">
+      <div class="float-left" v-show="activeTab === 'settings'">
         <h5 class="mt-4 mb-0 dark:text-white">Settings</h5>
         <p class="dark:text-white dark:opacity-80">See our apps options.</p>
+      </div>
+      <div class="float-left" v-show="activeTab === 'activity'">
+        <h5 class="mt-4 mb-0 dark:text-white">Activity</h5>
+        <p class="dark:text-white dark:opacity-80">See your activity.</p>
       </div>
       <div class="float-right mt-6">
         <button
@@ -68,8 +74,41 @@ onMounted(() => {
       class="h-px mx-0 my-1 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent dark:bg-gradient-to-r dark:from-transparent dark:via-white dark:to-transparent"
     />
     <div class="flex-auto p-6 pt-0 overflow-auto sm:pt-4 ps">
+      <div>
+        <ul
+          class="text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-700 dark:text-gray-400 flex justify-center"
+        >
+          <li class="">
+            <a
+              @click="activeTab = 'settings'"
+              href="#"
+              class="inline-block p-2 rounded-l-lg focus:outline-none"
+              :class="
+                activeTab === 'settings'
+                  ? 'bg-gray-100 dark:bg-gray-700 dark:text-white text-gray-900 active'
+                  : 'dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-70 bg-white hover:text-gray-700 hover:bg-gray-50'
+              "
+              aria-current="page"
+              ><SettingsIcon
+            /></a>
+          </li>
+          <li class="">
+            <a
+              @click="activeTab = 'activity'"
+              href="#"
+              class="inline-block p-2 rounded-r-lg focus:outline-none 0"
+              :class="
+                activeTab === 'activity'
+                  ? 'bg-gray-100 dark:bg-gray-700 dark:text-white text-gray-900 active'
+                  : 'dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-70 bg-white hover:text-gray-700 hover:bg-gray-50'
+              "
+              ><ActivityIcon
+            /></a>
+          </li>
+        </ul>
+      </div>
       <div class="flex flex-col h-full justify-between">
-        <div>
+        <div v-show="activeTab === 'settings'">
           <label class="flex my-4 hover:cursor-pointer">
             <h6 class="mb-0 dark:text-white">Dark mode</h6>
             <div class="block relative pl-0 ml-auto min-h-6">
@@ -149,9 +188,11 @@ onMounted(() => {
           <div>
             <DateFormatSelect />
           </div>
+        </div>
+        <div v-show="activeTab === 'activity'">
           <ActivityLogList :activity="userActivity" />
         </div>
-        <div>
+        <div class="absolute left-0 w-full bottom-0 dark:bg-slate-850 bg-white p-2">
           <div class="flex justify-center">
             <form @submit.prevent="logout">
               <button class="btn btn-primary text-white">

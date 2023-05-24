@@ -66,7 +66,7 @@ onMounted(() => {});
         <Tab title="Completions"> </Tab>
         <Tab title="Sources">
           <div
-            class="flex items-center justify-between bg-slate-200 dark:bg-slate-800 p-2 rounded-lg space-x-1 mb-2"
+            class="flex items-center justify-between bg-gray-100 dark:bg-slate-800 p-2 rounded-lg space-x-1 mb-2"
             v-for="(s, i) in automation.sources"
             :key="i"
           >
